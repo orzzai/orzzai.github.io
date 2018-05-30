@@ -388,6 +388,8 @@ a.post-title-link:hover {
   border-bottom: 2px solid #E6553A; }
 
 hr {
+  background-color: #7f8c8d;
+  height: 1px;
   border: 0; }
 
 code {
