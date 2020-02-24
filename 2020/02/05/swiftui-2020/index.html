@@ -20,7 +20,7 @@
 <p>还有一个排版神器就是GeometryReader，官方解释：A container view that defines its content as a function of its own size and coordinate space. 说的不明不白的，不过我感觉大概用法就是，当你懒得算你目前这个view的宽/高，但你又需要这两个数的时候，就可以用它来取值，就不用自己算了。类似这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VStack &#123;</span><br><span class="line">	Image(&quot;对不起我也不知道我多大&quot;)</span><br><span class="line">	Image(&quot;我必须要是剩余面积的4/9大&quot;).resizable().frame(width:要自己算,height:要自己算)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>用了GeometryReader就可以轻轻松松变成这样，皆大欢喜<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">VStack &#123;</span><br><span class="line">	Image(&quot;对不起我也不知道我多大&quot;)</span><br><span class="line">	GeometryReader &#123; geometry in</span><br><span class="line">		Image(&quot;我必须要是剩余面积的4/9大&quot;)</span><br><span class="line">			.resizable()</span><br><span class="line">			.frame(width:2/3 * geometry.width, height:2/3 * geometry.height)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>不过这个GeometryReader我有点拿不准是怎么个编译原理，也不知道geometry是何时生成怎么生成的，关键词它总是能引入一些奇奇怪怪的bug。比如说我之前在ScrollView里面加了个GeometryReader，结果不知道为什么再里面的子元素全都被拉地比屏幕宽一点，只要把GeometryReader套到ScrollView外面就修好了。还有一次本来我好好写了个Navigation，结果在Navigation外面一套上GeometryReader，每次我从details view退出来以后就发现NavigationView里面的列表不明原因重新加载了一遍，非常奇怪。</p>
-<p>其次，Swift这个语言本身还蛮好用。简洁方便又是强类型，optional和required分的很清楚，但是optional chaining又能够减轻强行类型转换带来的风险。这种便利是我用过的其他编程语言里面都没有的。其他的就没什么了。</p>
+<p>其次，Swift这个语言本身还蛮好用。简洁方便又是强类型，optional和required分的很清楚，但是optional chaining又能够减轻强行类型转换带来的风险。这种便利是我用过的其他编程语言里面都没有的。还有就是Playground非常好用（虽然和Xcode其他功能一样慢的一笔……）再其他的就没什么了。</p>
 <h3 id="Cons"><a href="#Cons" class="headerlink" title="Cons"></a>Cons</h3><p>目前SwiftUI的坑还是非常多的，多到我觉得如果让我重新做这个项目，我大概还是会老老实实的写ViewControllers。根源就在于这个语言真的还是处在小白鼠阶段啊，UIKit有的功能它大概连三分之一都没有啊！具体有哪些坑我列举一下</p>
 <h4 id="1-基本不能自定义行为。"><a href="#1-基本不能自定义行为。" class="headerlink" title="1. 基本不能自定义行为。"></a>1. 基本不能自定义行为。</h4><p>最简单的，用UIKit+ViewController非常容易做到的，在某一个View下面改变status bar字色。用SwiftUI我到目前还没找到一个不用把我整个项目推翻重写的办法来做到这点……</p>
 <p>然后再举个例子。有一个输入框，你希望你输入的时候，键盘的回车键上面写的是”Search”，然后点search会触发什么行动。用UIKit一行就搞定了的事儿，结果因为SwiftUI textfield没办法预设UIReturnKeyType，于是我不能使用SwiftUI自带的TextField，一定要用UITextField并且自己写个UIViewRepresentable来包装。然后为了能够监听回车键，我又多写了个UITextFieldDelegate……也就是说，为了这么简单一个功能，我tm足足写了三个类，感觉上特别冒傻气有木有！</p>
@@ -36,11 +36,21 @@
 <p><img src="/images/swiftui/alignmentguide.png" alt="Alignment Guide"></p>
 <p>反正我是输了……</p>
 <p>连这种简单的文档都没有，那就更不用提复杂一些了。比如说app从后台回来以后，重新打开navigation里的某个detail view是怎么个程序啦，会不会调用onAppear，怎么把缓存的数据往里灌啦，统统搞不定。我只知道view.onAppear()没有再被调用，剩下的也只能交给它了。</p>
-<p>此外还踩了各种乱七八糟的坑，过两天回来偷偷更新吧。</p>
-<h3 id="记踩过的坑"><a href="#记踩过的坑" class="headerlink" title="记踩过的坑"></a>记踩过的坑</h3><p>待更新</p>
+<h4 id="3-Previewer实在太慢！"><a href="#3-Previewer实在太慢！" class="headerlink" title="3. Previewer实在太慢！"></a>3. Previewer实在太慢！</h4><p>一开始发现Xcode上面有previewer我觉得很方便，后来发现真的每次要更新界面都要至少两分钟，还不如直接重新在Simulator上编译一遍……那你开发这么个功能干个球！？</p>
+<h3 id="记踩过的坑"><a href="#记踩过的坑" class="headerlink" title="记踩过的坑"></a>记踩过的坑</h3><ol>
+<li>改输入框的return key，上面已详述</li>
+<li>edgesIgnoreUnsafeAreas该怎么用啊救命——我一个tab view有三个tab，第一个tab里面有个navigation view，然后这个navigation stack里的其中一个view需要饱含顶上status bar……（最后好像是把navigation view和它的parent view的这个参数设成true了，不过我到现在也不知道原理几何）</li>
+<li>Identifiable. 首先SwiftUI规定了只有Identifiable protocol才可以遍历，也就是说这个struct需要一个id property。但是它又没什么用，所以我一开始是这么写的</li>
+</ol>
+<p>···<br>// Model.swift<br>struct PlaceInfoModel : Identifiable {<br>    static var instanceCounter = 0<br>    var id: Int {<br>        PlaceInfoModel.instanceCounter += 1<br>        return PlaceInfoModel.instanceCounter<br>    }<br>    var name: String<br>    var rating: Double</p>
+<p>// ModelView.swift<br>List(self.state.placeInfoModels) { result in<br>    NavigationLink(destination:<br>        PlaceView(result)<br>    ) {<br>        PlaceRow(result)<br>    }<br>}<br>···</p>
+<p>结果self.state.placeInfoModels的变化无法反映到UI上。原因——每次哪个model有了变化，这个model的ID其实都会更新一遍，而这个List并没有监听新的ID……<br>这个问题其实不难解决，我后来发现可以直接用Foundation里面的UUID()就不用自己拿instance counter算了。但是当时查找问题真的查了好半天。</p>
+<p>4.机型适配。理论上，你的UI有两种宽度（compact &amp; regular）和两种高度（同前）。程序通过调用UserInterfaceSizeClass来检测目前的宽高，并且根据是compact还是regular来决定排版（比如说宽度为regular的话用双列排版）<br>然后我发现，每次我旋转iPhone 8P的时候排版都会乱掉。查了一整夜终于发现了这么个文档，官方的：<a href="https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/adaptivity-and-layout/" target="_blank" rel="noopener">Adaptivity and Layout</a></p>
+<p>然后发现了原因——8p, Xr, Xs Max都有这个问题，就是竖版是compact width regular height，横版刚好是regular width compact height…然后对于device orientation的处理，对于这几种机型来说好像是有已知bug的。怪不得那么多app在手机上都不支持横版，我一气之下也干脆把横版给省了。</p>
+<p>还有踩了很多坑，不过后来证明是我自己没好好读文档和sample app代码，就不详述了。</p>
 <hr>
 <p>最后感慨一句，iOS开发现在比几年前还是简单多了。以前我各种证书都搞不定，这次基本上直接用XCode给我生成的证书发布了beta版。而且开发全程我基本没动Info.plist，换了以前我想都不敢想啊。</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/12/31/2019-review-and-2020-resolution/" class="pag-button next">Next</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'orzzai';
+</div></article></div></main><footer><div class="paginator"><a href="/2019/12/31/2019-review-and-2020-resolution/" class="pag-button next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'orzzai';
 var disqus_identifier = '2020/02/05/swiftui-2020/';
 var disqus_title = 'SwiftUI编程体验';
 var disqus_url = 'http://orzzai.github.io/2020/02/05/swiftui-2020/';
