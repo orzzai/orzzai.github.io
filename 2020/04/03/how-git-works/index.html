@@ -24,7 +24,7 @@
 <h4 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h4><p>Rebase比merge烦太多了，因此让业界很多小伙伴感到头疼。Rebase的工作原理就是——<strong>真的提炼出每个commit的code diff，然后按顺序把这些code diff在另一个分支上重复一遍。</strong></p>
 <p>比如上面情况，假设鲍勃小哥想要rebase onto爱丽丝小姐姐的分支，那么在他输入命令回车的瞬间git会问他——她的版本是”Hello world”你的版本是”hello”，请问你选哪个？</p>
 <ul>
-<li>如果选鲍勃的版本”hello”，那么爱丽丝那个commit大概要从作废了。</li>
+<li>如果选鲍勃版本”hello”，那么爱丽丝那个commit大概要作废了。</li>
 <li>如果选爱丽丝版本”Hello world”，那么等作用下一个commit的时候git又会问一遍，“Hello world”和“hello world”你选哪个？如果选了前者的话，可能后面还要再问一遍”Hello world”和“hello world!”你选哪个……</li>
 <li>如果直接在这里改成”Hello”那么和选”Hello world”一样，接下来每次作用新的commit，他就要修一次merge conflict，实惨</li>
 </ul>
@@ -42,7 +42,7 @@
 <p>Do not rebase commits taht exist outside your repository and that people may have based work on.</p>
 </blockquote>
 <p>然而我现在辞职了，大概也不会想事后诸葛亮地回去battle前同事了。不知道以后能不能用来怼新同事……</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/04/01/move-2020/" class="pag-button next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'orzzai';
+</div></article></div></main><footer><div class="paginator"><a href="/2020/04/01/move-2020/" class="pag-button next">Next</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'orzzai';
 var disqus_identifier = '2020/04/03/how-git-works/';
 var disqus_title = '说说我以前不知道的git';
 var disqus_url = 'http://orzzai.github.io/2020/04/03/how-git-works/';
