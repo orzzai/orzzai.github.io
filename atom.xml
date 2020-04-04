@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://orzzai.github.io/"/>
-  <updated>2020-04-02T03:52:19.788Z</updated>
+  <updated>2020-04-04T05:03:35.877Z</updated>
   <id>http://orzzai.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>说说我以前不知道的git</title>
+    <link href="http://orzzai.github.io/2020/04/03/how-git-works/"/>
+    <id>http://orzzai.github.io/2020/04/03/how-git-works/</id>
+    <published>2020-04-04T03:14:50.000Z</published>
+    <updated>2020-04-04T05:03:35.877Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前和同事因为git产生过不少矛盾，每次我都有一种“你的做法好像和我所听说过其他人的做法不太一样可是我又说不上来哪里不对”的感觉。为了能够长久的在技术讨论时立于不败之地（并不是），我在承诺给组里发表一个report以后开始带薪研究git的最佳流程。</p><p>这个研究做的其实比想象中时间更久，可能我真的不适合做research（还好没去学术节啊阿弥陀佛），研究清楚我具体想要解决哪些问题就想了很久。最终我简单粗暴地把研究课题定为<strong>How To Avoid Merge Conflicts</strong>并开始在Google中进行了graph search，发现网上能找到的现成资料的解释都非常浮于表面（比如怎么使用feature branch之类，还有要尽量多commit写清楚commit message等等）。再搜，发现其实我想要的信息全都在官方指南<a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener">Pro Git Book</a>里面，只是字太多了导致我一开始漏看了很多内容😂</p><p>这几天左右无事，准备把还记得的部分赶快用中文自己记录一下，算是给自己和需要的小伙伴们再科普一次，也是我开博以来第二篇技术干货啦啦啦～想跳过过程/原理等等直接看结论的，请直接跳到最后一个section并且欢迎来怼，毕竟都是一家之言😂</p><h3 id="Commit-Tree-amp-Blob"><a href="#Commit-Tree-amp-Blob" class="headerlink" title="Commit, Tree &amp; Blob"></a>Commit, Tree &amp; Blob</h3><p>讲真，在我用git命令行的很长一段时间以来，根本不知道tree和blob是什么，对于commit的了解也仅限于“保留了这个项目的某个版本”。直到我开始在天少的推荐下用起了git客户端才发现居然还有tree/blob之类的东西。比如说如果你用<code>git ls-tree [commit-sha]</code>这个命令，你会看到类似以下的东西……</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git ls-tree 0ab925e1f445e535fe5b0a936b0facc867fcf149</span><br><span class="line">100644 blob 660170cc0ca2fd12955558577479d6599424f7e9.gitignore</span><br><span class="line">100644 blob f6d0daa4437cc3cc01f7b29fa2848d0fe9e4871fCONTRIBUTING.md</span><br><span class="line">040000 tree 1e3c518fe4933da3dfbfc37819d310552fe2b0ebDionysus.xcodeproj</span><br><span class="line">040000 tree 37b1877603d7854991120cd677ea09efab33a393Dionysus</span><br><span class="line">040000 tree f83fd13949bf60d50db0a00f3259680f6d83c304DionysusTests</span><br><span class="line">040000 tree d5d5bdffe207a6a3c5a07ce376f1d5295959e254DionysusUITests</span><br><span class="line">100644 blob 9b3ac0e3f3c79ef5036bf9df37ea1da59289ff1aPodfile</span><br><span class="line">100644 blob 8dca0ef160daa18316a9e51da5d5da8dbddd71bcREADME.md</span><br></pre></td></tr></table></figure><p>同样的命令也可以用在tree/blob sha上面，比如说我用上面结果第四行那一大串作为输入，调用同一个命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git ls-tree 37b1877603d7854991120cd677ea09efab33a393</span><br><span class="line">100644 blob 7aad2e58f45aa609b78876aa30d3d759c44ee064APIKeys_sample.swift</span><br><span class="line">100644 blob 7fa1df09658fa0b3444785131f7c3389bf2f99b0AppDelegate.swift</span><br><span class="line">040000 tree a81076cc287adc42b745453dde5ce18299d395a9Assets.xcassets</span><br><span class="line">040000 tree f3c26079372eb516f03fad967cbe8e0eab5bc5d7Base.lproj</span><br><span class="line">100644 blob f4912c947b75992aaf1e8e486956bc25bc935ee1Info.plist</span><br><span class="line">040000 tree d4373b5b8be66ef42fe9f750d26bb834b51b93afPreview Content</span><br><span class="line">100644 blob e5544eedf22df7c9c82603211b56d2faa306d67cRootView.swift</span><br><span class="line">100644 blob f12e5d831957b545fbc473356c4a5575368b1385SceneDelegate.swift</span><br><span class="line">040000 tree 590fbf29e542792b2cf89eb2d9e055cb1fb795c8core</span><br><span class="line">040000 tree ed1593c5cb4ba63e36cb7cddaa5f0eecf8774f1dviews</span><br></pre></td></tr></table></figure></p><p>所以这些都是什么东西呢？</p><p><strong>blob</strong>比较好理解，就是某个文件的某个版本。比如说我一个repository有helloworld.txt，后来某次提交了对这个文件的改动。那么在这次提交之前的commits就会指向helloworld-blob-1，之后的就会指向helloworld-blob-2，直到再改为止。</p><p><strong>tree</strong>根据官方说法就是一个类似Unix file system的存在，代表某文件夹的某版本。比如说上面这一段输出的意思就是在目前版本的Dionysus文件夹中，有7aad2e…版本的APIKeys_sample.swift等等文件，同时还有几个文件夹比如说a81076…版本的Assets. 话说我这之前一直没怎么搞懂这是啥，写这段文字的时候突然秒懂，参考名侦探柯南后脑勺划过一道闪电……</p><p>话说每个<strong>commit</strong>也是指向一个tree的，就是repository根目录当前版本的tree. 所以说每个commit实际上根本不像我之前以为的是一大帮code diff，而是……</p><blockquote><p>The pointer to the top-level tree for the <strong>snapshot</strong> of the project at that point.</p></blockquote><p>是整个项目的快照啊啊啊啊……我大概是因为平时rebase用的太多才会天真的以为每个commit是一堆code diff吧！</p><h3 id="Conflicts是如何产生的"><a href="#Conflicts是如何产生的" class="headerlink" title="Conflicts是如何产生的"></a>Conflicts是如何产生的</h3><p>一般情况下把两个错开的分支捏一块儿无非两招，merge &amp; rebase.（之所以强调“错开的”分支是因为我不想讨论无关主题的fast forward merging）</p><p>为了解释原理我们先假设这么一个场景——某个文件里面有一行”hello world”</p><ol><li>爱丽丝小姐姐把hello改成了大写</li><li>鲍勃小哥哥先把world删了，commit，再把world加了回来，commit，最后再</li></ol><h4 id="Three-Way-Merge"><a href="#Three-Way-Merge" class="headerlink" title="Three-Way Merge"></a>Three-Way Merge</h4><p>基本上就是把两个commit的快照对比一下，哪行出现了多个版本，就解决哪行的conflict，解决完后产生新的blob/tree并以此建立一个新的merge commit。</p><p>比如要merge上面俩小伙伴的代码会出现以下情况——merge conflict between “Hello world” and “hello world!”，所以这行到底应该是什么？于是我把这行改成”Hello world!”提交即可。</p><p>结论：你只用解决一次conflict。</p><h4 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h4><p>Rebase比merge烦太多了，因此让业界很多小伙伴感到头疼。Rebase的工作原理就是——<strong>真的提炼出每个commit的code diff，然后按顺序把这些code diff在另一个分支上重复一遍。</strong></p><p>比如上面情况，假设鲍勃小哥想要rebase onto爱丽丝小姐姐的分支，那么在他输入命令回车的瞬间git会问他——她的版本是”Hello world”你的版本是”hello”，请问你选哪个？</p><ul><li>如果选鲍勃的版本”hello”，那么爱丽丝那个commit大概要从作废了。</li><li>如果选爱丽丝版本”Hello world”，那么等作用下一个commit的时候git又会问一遍，“Hello world”和“hello world”你选哪个？如果选了前者的话，可能后面还要再问一遍”Hello world”和“hello world!”你选哪个……</li><li>如果直接在这里改成”Hello”那么和选”Hello world”一样，接下来每次作用新的commit，他就要修一次merge conflict，实惨</li></ul><p>结论：你要解决O(n)次conflict。</p><p>当然目前业界明显是偏爱rebase多余merge的，理由显而易见，毕竟事后出了问题debug起来不要比merge容易更多啊～想象一下我发现某一行有bug，怒输入git blame回车，结果一看特么的”Merge branch feature-XXX…”而且当你排查feature-XXX的时候很可能bug消失了，你说气不气？而且git还有个我没用过的神器叫git bisect，二分查找debug的，那你要能二分查找岂不是得保证commit log得是线性的嘛。</p><h4 id="Squash"><a href="#Squash" class="headerlink" title="Squash"></a>Squash</h4><p>因此我还研究了一下什么时候应该用squash。比如鲍勃小哥哥如果在rebase之前把他的三个commit都squash了，那就好办了，rebase的时候解决一次conflict即可。</p><p>那问题来了，万一他提交完第一个第二个commit以后，我从他的分支又起了个分支并且提交了n个commit。当我想重新把自己的分支merge回他的分支的时候（注意是merge，不是rebase），发现他竟然squash了……然后问题就来了，我的branch里面还有他rebase之前的commits呀，直接merge的话会出现一个“同一版代码在git history中以不同的sha出现两次”的诡异情况</p><h3 id="如何解决conflicts"><a href="#如何解决conflicts" class="headerlink" title="如何解决conflicts"></a>如何解决conflicts</h3><p>我是这么想的——一切取决于你的分支上还有没有其他分支。</p><ul><li>没有的话，放心squash and rebase，一次性解决全部conflicts，还能灭掉很多”fix typo”之类的鸡肋commit message.</li><li>有而且其他分支上有比较多比较大的改动的话，直接用merge，不要再重新生成一堆新的commits。毕竟这个分支本来就是作为一个，嗯—— 母节点（？）而不是子节点而存在的，以后看git log的时候能够诚实反应各种dependencies不是也挺好的嘛。</li></ul><p>引用Pro Git Book上一句箴言——</p><blockquote><p>Do not rebase commits taht exist outside your repository and that people may have based work on.</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      之前和同事因为git产生过不少矛盾，每次我都有一种“你的做法好像和我所听说过其他人的做法不太一样可是我又说不上来哪里不对”的感觉。为了能够长久的在技术讨论时立于不败之地（并不是），我在承诺给组里发表一个report以后开始带薪研究git的最佳流程。
+
+这个研究做的其实比想象中时间更久，可能我真的不适合做research（还好没去学术节啊阿弥陀佛），研究清楚我具体想要解决哪些问题就想了很久。最终我简单粗暴地把研究课题定为How To Avoid Merge Conflicts并开始在Google中进行了graph search，发现网上能找到的现成资料的解释都非常浮于表面（比如怎么使用featu
+    
+    </summary>
+    
+      <category term="The Hashmap" scheme="http://orzzai.github.io/categories/The-Hashmap/"/>
+    
+    
+      <category term="tech" scheme="http://orzzai.github.io/tags/tech/"/>
+    
+  </entry>
   
   <entry>
     <title>寄居蟹搬家记(3)</title>
@@ -534,34 +558,6 @@ Here we go again, and hopefully I can check some of them off in two years time�
     </summary>
     
       <category term="Thread" scheme="http://orzzai.github.io/categories/Thread/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>狗尾续的本来就不是貂</title>
-    <link href="http://orzzai.github.io/2019/02/04/jan-2019/"/>
-    <id>http://orzzai.github.io/2019/02/04/jan-2019/</id>
-    <published>2019-02-05T04:57:37.000Z</published>
-    <updated>2019-02-05T05:28:16.898Z</updated>
-    
-    <content type="html"><![CDATA[<p>我觉得我好像已经很久没有过过一个这么难忘的一月份了。当然我也不确定过几个月或者过个一两年，我还会不会记得2019年的1月是什么样子。</p><p>总而言之就是，诸事不顺，好像一切都如此事与愿违。</p><p>月初莫名其妙地在波多黎各被困了10天，耽误的事情我觉得好像还不少。回了纽约后过了一周是MLK小长假，要去看菜师傅结果在我辗转了两个飞机场上气不接下气跑进机舱后，飞机还是取消了。申请签证被RFE了，也就是说，说好的3月份回国参加何青婚礼这事儿，八成也要泡汤了。</p><p>错过一次婚礼可能也还可以接受，就怕以后会错过更多次婚礼，甚至错过葬礼。人生一梦，白云苍狗，又还剩多少“仪式”等着人去见证呢。</p><p>在我能做到范围的事，我觉得我都已经尽力在做了。周末不要太懒。读书。上英语课。每周练两到三个小时琴。我都做到了，而且应该说，做的都还不错。</p><p>不过这一个月来，情绪各种起起伏伏，千回百转回来，实在有些疲倦。</p><p>之前总听人说越长大越孤单。最近第一次有了这种感觉。但事实上，一定要数一数的话，我现在的朋友又好像比十年前只多不少。只是相比于学生时代大家生活在一起近乎形影不离，即使是网友也基本上是按着大学的课程表生活。而现在，身边朋友们各自都有各自的生活和作息。于是我也就真的不太好意思以打搅别人生活为代价，让人给我当情绪垃圾桶了。</p><p>更何况，情绪垃圾桶这种东西真的有用吗？对我而言，好像也就管几个小时。制造情绪的问题，从来不会因为一次酣畅淋漓的倾诉和哭泣，就会自动蒸发。</p><p>于是我又陷入了矛盾——倾诉真的不解决问题。但是想找人说说话的时候，能找得着，应该总是比找不着要好吧。</p><p>写着写着，西五区就从年三十儿跨入了大年初一。</p><p>狗年过的普普通通，那么续一条狗尾，好像也是理所当然。</p><p>猪年，但愿真的能“猪”事如意吧。</p>]]></content>
-    
-    <summary type="html">
-    
-      我觉得我好像已经很久没有过过一个这么难忘的一月份了。当然我也不确定过几个月或者过个一两年，我还会不会记得2019年的1月是什么样子。
-
-总而言之就是，诸事不顺，好像一切都如此事与愿违。
-
-月初莫名其妙地在波多黎各被困了10天，耽误的事情我觉得好像还不少。回了纽约后过了一周是MLK小长假，要去看菜师傅结果在我辗转了两个飞机场上气不接下气跑进机舱后，飞机还是取消了。申请签证被RFE了，也就是说，说好的3月份回国参加何青婚礼这事儿，八成也要泡汤了。
-
-错过一次婚礼可能也还可以接受，就怕以后会错过更多次婚礼，甚至错过葬礼。人生一梦，白云苍狗，又还剩多少“仪式”等着人去见证呢。
-
-在我能做到范围的事，我
-    
-    </summary>
-    
-      <category term="The List" scheme="http://orzzai.github.io/categories/The-List/"/>
     
     
   </entry>
