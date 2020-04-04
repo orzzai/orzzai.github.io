@@ -29,9 +29,9 @@
 <li>如果直接在这里改成”Hello”那么和选”Hello world”一样，接下来每次作用新的commit，他就要修一次merge conflict，实惨</li>
 </ul>
 <p>结论：你要解决O(n)次conflict。</p>
-<p>当然目前业界明显是偏爱rebase多余merge的，理由显而易见，毕竟事后出了问题debug起来不要比merge容易更多啊～想象一下我发现某一行有bug，怒输入git blame回车，结果一看特么的”Merge branch feature-XXX…”而且当你排查feature-XXX的时候很可能bug消失了，你说气不气？而且git还有个我没用过的神器叫git bisect，二分查找debug的，那你要能二分查找岂不是得保证commit log得是线性的嘛。</p>
+<p>当然目前业界明显是偏爱rebase多于merge的，理由显而易见，毕竟事后出了问题debug起来不要比merge容易更多啊～想象一下我发现某一行有bug，怒输入git blame回车，结果一看特么的”Merge branch feature-XXX…”而且当你排查feature-XXX的时候很可能bug消失了，你说气不气？而且git还有个我没用过的神器叫git bisect，二分查找debug的，那你要能二分查找岂不是得保证commit log得是线性的嘛。</p>
 <h4 id="Squash"><a href="#Squash" class="headerlink" title="Squash"></a>Squash</h4><p>因此我还研究了一下什么时候应该用squash。比如鲍勃小哥哥如果在rebase之前把他的三个commit都squash了，那就好办了，rebase的时候解决一次conflict即可。</p>
-<p>那问题来了，万一他提交完第一个第二个commit以后，我从他的分支又起了个分支并且提交了n个commit。当我想重新把自己的分支merge回他的分支的时候（注意是merge，不是rebase），发现他竟然squash了……然后问题就来了，我的branch里面还有他rebase之前的commits呀，直接merge的话会出现一个“同一版代码在git history中以不同的sha出现两次”的诡异情况</p>
+<p>那问题来了，万一他提交完第一个第二个commit以后，我从他的分支又起了个分支并且提交了n个commit。当我想重新把自己的分支merge回他的分支的时候（注意是merge，不是rebase），发现他竟然squash了……然后问题就来了，我的branch里面还有他rebase之前的commits呀，直接merge的话会出现一个“同一版代码在git history中以不同的sha出现两次”的诡异情况……</p>
 <h3 id="如何解决conflicts"><a href="#如何解决conflicts" class="headerlink" title="如何解决conflicts"></a>如何解决conflicts</h3><p>我是这么想的——一切取决于你的分支上还有没有其他分支。</p>
 <ul>
 <li>没有的话，放心squash and rebase，一次性解决全部conflicts，还能灭掉很多”fix typo”之类的鸡肋commit message.</li>
@@ -42,7 +42,7 @@
 <p>Do not rebase commits taht exist outside your repository and that people may have based work on.</p>
 </blockquote>
 <p>然而我现在辞职了，大概也不会想事后诸葛亮地回去battle前同事了。不知道以后能不能用来怼新同事……</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/04/01/move-2020/" class="pag-button next">Next</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'orzzai';
+</div></article></div></main><footer><div class="paginator"><a href="/2020/04/01/move-2020/" class="pag-button next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'orzzai';
 var disqus_identifier = '2020/04/03/how-git-works/';
 var disqus_title = '说说我以前不知道的git';
 var disqus_url = 'http://orzzai.github.io/2020/04/03/how-git-works/';
