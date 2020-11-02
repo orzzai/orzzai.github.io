@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="Chinese"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 甲方乙方 · 萝莉背剑闯江湖</title><meta name="description" content="甲方乙方 - 黄某崽"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://orzzai.github.io/atom.xml" title="萝莉背剑闯江湖"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"><h1>萝莉背剑闯江湖</h1></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/subscribe/" target="_self" class="nav-list-link">SUBSCRIBE</a></li></ul></header><h5 style="color:#7f8c8d">一只过期萝莉的碎碎念</h5><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">甲方乙方</h1><div class="post-info">Nov 2, 2020</div><div class="post-content"><p>以前在贵司搬砖的重头戏就是Zendesk在线给甲方爸爸答疑（这里甲方我指的是publishers因为我们组开发的包就是给他们用的），后来跳槽了，做的事情也差不多——除了我坐到桌子另一头，变成甲方了。</p>
+<p>之前负责给人解答问题的时候免不了总是吐槽“为什么这些客户跑来问一些这么傻逼的问题。”当然那个时候也知道自己的吐槽不太公平，毕竟产品是自家的，我思考问题时无意中预设的前提，对方没有概念也是常事。那时候我最好奇的明明是一个问题——人家代码跑不通，谁写的代码谁来来问我就好了嘛，为什么中间要经过一大堆不相干的人传话呢？（有时候会原封不动复制粘贴，这种情况下我就会觉得”这帮人存在是干啥的“；有时候会用自己的语言描述碰到的问题，然后又经常说错……）</p>
+<p>于是带着两个问题在新公司入了职。一、我觉得蠢的甲方是真的蠢还是只是我的错觉。二、甲方寻求乙方技术支持具体是个什么流程。</p>
+<p>太长不读版本：<strong>是的，我以前的吐槽都是没有问题的。</strong>因为甲方只需要知其然不需要知其所以然，反正出了问题也不用我们自己解决，所以技术是真的不行……</p>
+<h3 id="阶级"><a href="#阶级" class="headerlink" title="阶级"></a>阶级</h3><p>负责给我和同组另一个码农小哥派活的大姐姐的抬头是Director of Ad Tech，她和Director of Revenues和Director of Ad Ops一起汇报给VP of Marketing and Advertising。因为这位大姐姐各方面都对我很不错（会聊天，任务分配合理，尊重我的工作节奏，噢最重要的就是喜欢在各种人面前花式夸我们）所以一开始我也没觉得有什么问题，基本上也就把她当成了PM这样的角色。直到后来意识到每次和其他组或者和甲方爸爸开会的时候她介绍我们都是my two awesome engineers……哦这意思就是我们俩就是她的工具人呗。当然我并没有指责她的意思，但是我明白了<strong>在这个生态中，我们作为工程师，“阶级”是比她和她那些其他directors要低的。</strong>s</p>
+<p>对比以前，我虽然也等于是在给公司股东们打工，但心态上好像一直是把自己和同为工程师的老板和同事们当大爷的。毕竟公司的核心竞争力——产品质量——很大程度上取决于我们这些制作产品的人，连传说中的阶级敌人PM定需求都要先过Engineering大佬这一关才会到我们手上，工程师的总体地位不高才怪。</p>
+<p>而因为技术人员地位不高的情况下，甲方ad ops整个群体给人一种“技术不行”的观感，那自然再正常不过。</p>
+<p>话说我的直接领导确实是Engineering team的大佬，但是他不负责管我平时干活，只负责给我给我批假或者写考评这种事情。当然技术问题很多时候我需要去问他，遇到急着修的bug的时候他也会帮忙指路，充当的更多是一个顾问的角色。</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>来了半年了，我经常吐槽公司的engineering practice不行。不过我仔细想了想以后，我觉得这锅不能让公司背——其实我公司的engineering practice非常完善，各种pipeline跑的666，虽然code review不强制但是linter管的很严，各种readme写的也简单易懂，用的一些框架虽然我没机会学但是听说挺高级的。只，是！我们组的practice非常不行，连单元测试都是缺斤少两的。那为什么我们组的engineering practice不行呢，很简单，因为我们组根本不是搞engineering的啊！</p>
+<p>测试？测试是干啥用的，保证自己写的代码质量好。但我们用的都不是自己的代码，先不说测试不通过算谁的这种事，关键是可能这代码只用一年，等公司不想续签合同了这些代码就全删了，那你在上面多花时间不是浪费么？</p>
+<p>然后说到和乙方开ticket的流程。我在这半年，目前有两个相对大一些的项目是在和乙方做集成。其中一个乙方应该是签了很久了，不过他们想让我们试用他们的新产品，流程相对比较顺畅，Director大姐姐介绍我和那边负责人认识以后，我直接被他邀请到他的Slack workspace，有问题直接上面问就好了。另一个是十月份刚签下来的，算是全方位的暴露了我以前不知道的甲方工作流程——</p>
+<ol>
+<li>对方发来了上路指南等等文档</li>
+<li>我们读完，提出问题，早上开站会的时候讨论</li>
+<li>一边讨论，大姐姐就一边开始写邮件。对，一般都是她来写，因为这种统筹啊沟通啊之类的事情理应是她负责。要我自己写当然也可以，但是“沟通”这种事毕竟不在我职责范围内嘛。她一边写会一边让我们看是不是这么回事儿，此时我经常能看出来她对技术的理解就还是有偏差。</li>
+<li>经常会开会，而且明明我以为这个会只讨论技术实现，结果一大堆Ad/revenue的大佬们也会来旁听，听不懂的技术细节他们会想办法搞明白（虽然我觉得开到最后他们也经常有点晕）免得我们说着说着要去搞一些合同里没有，需要再花几千块钱买的东西……</li>
+</ol>
+<p>说到“花钱”这点，想起来我前段时间在思考的一个话题——我们技术人员和ad ops的人，即使不停地讨论”what’s happening on the business side”，为何依然无法有效的沟通？<strong>应该是因为前者看的是如何实现，而后者看的是如何变现。</strong>这就是为啥我觉得我和他们沟通起来总是有个壁，感觉他们告诉我的都不是我想知道的，而我觉得他们理应知道的最后发现他们都不知道……就经常他们说“哎你去做某某改动”我会问“这是什么改动，我改完了以后应该在页面上看到一个什么效果”他们回答来回答去都是“为什么从business角度来说我们要做这个改动？”具体例子我现在也想不起来了，只能说还好我算是个训练有素的agile人，每次被开了ticket都会追问一句”So what’s the acceptance criteria?”</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>写的时候发现了这篇<a href="https://zhuanlan.zhihu.com/p/28208437" target="_blank" rel="noopener">知乎文章</a>。妈呀我觉得说得真好……</p>
+<p>作为一个直接动手做产品并靠此获得成就感的底层技术人员来说，我真是too young to naive才会想去甲方看看咋回事，自己不动手做产品就把别人买的轮子拿来乱套，真的没法提升技术竞争力。</p>
+<p>但同时，在乙方毕竟姿态低，所以对于做决策的人来讲应该就是另一回事了。如果搬砖工们都像我一样傻hi地从没觉得需要低声下气伺候甲方爸爸，那很幸运，你顶上的大佬们已经把这些事都做了。想到以前有两次我ticket被人给差评，都是我老板挺身而出和对方交涉给我擦屁股，简直感动TAT</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/08/31/10-yrs-in-usa/" class="pag-button next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'orzzai';
+var disqus_identifier = '2020/11/02/two-sides-of-ad-tech/';
+var disqus_title = '甲方乙方';
+var disqus_url = 'http://orzzai.github.io/2020/11/02/two-sides-of-ad-tech/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//orzzai.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2020 <a href="http://orzzai.github.io">黄某崽</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

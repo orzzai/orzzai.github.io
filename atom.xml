@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://orzzai.github.io/"/>
-  <updated>2020-09-01T05:11:31.492Z</updated>
+  <updated>2020-11-02T14:02:29.634Z</updated>
   <id>http://orzzai.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>甲方乙方</title>
+    <link href="http://orzzai.github.io/2020/11/02/two-sides-of-ad-tech/"/>
+    <id>http://orzzai.github.io/2020/11/02/two-sides-of-ad-tech/</id>
+    <published>2020-11-02T13:54:22.000Z</published>
+    <updated>2020-11-02T14:02:29.634Z</updated>
+    
+    <content type="html"><![CDATA[<p>以前在贵司搬砖的重头戏就是Zendesk在线给甲方爸爸答疑（这里甲方我指的是publishers因为我们组开发的包就是给他们用的），后来跳槽了，做的事情也差不多——除了我坐到桌子另一头，变成甲方了。</p><p>之前负责给人解答问题的时候免不了总是吐槽“为什么这些客户跑来问一些这么傻逼的问题。”当然那个时候也知道自己的吐槽不太公平，毕竟产品是自家的，我思考问题时无意中预设的前提，对方没有概念也是常事。那时候我最好奇的明明是一个问题——人家代码跑不通，谁写的代码谁来来问我就好了嘛，为什么中间要经过一大堆不相干的人传话呢？（有时候会原封不动复制粘贴，这种情况下我就会觉得”这帮人存在是干啥的“；有时候会用自己的语言描述碰到的问题，然后又经常说错……）</p><p>于是带着两个问题在新公司入了职。一、我觉得蠢的甲方是真的蠢还是只是我的错觉。二、甲方寻求乙方技术支持具体是个什么流程。</p><p>太长不读版本：<strong>是的，我以前的吐槽都是没有问题的。</strong>因为甲方只需要知其然不需要知其所以然，反正出了问题也不用我们自己解决，所以技术是真的不行……</p><h3 id="阶级"><a href="#阶级" class="headerlink" title="阶级"></a>阶级</h3><p>负责给我和同组另一个码农小哥派活的大姐姐的抬头是Director of Ad Tech，她和Director of Revenues和Director of Ad Ops一起汇报给VP of Marketing and Advertising。因为这位大姐姐各方面都对我很不错（会聊天，任务分配合理，尊重我的工作节奏，噢最重要的就是喜欢在各种人面前花式夸我们）所以一开始我也没觉得有什么问题，基本上也就把她当成了PM这样的角色。直到后来意识到每次和其他组或者和甲方爸爸开会的时候她介绍我们都是my two awesome engineers……哦这意思就是我们俩就是她的工具人呗。当然我并没有指责她的意思，但是我明白了<strong>在这个生态中，我们作为工程师，“阶级”是比她和她那些其他directors要低的。</strong>s</p><p>对比以前，我虽然也等于是在给公司股东们打工，但心态上好像一直是把自己和同为工程师的老板和同事们当大爷的。毕竟公司的核心竞争力——产品质量——很大程度上取决于我们这些制作产品的人，连传说中的阶级敌人PM定需求都要先过Engineering大佬这一关才会到我们手上，工程师的总体地位不高才怪。</p><p>而因为技术人员地位不高的情况下，甲方ad ops整个群体给人一种“技术不行”的观感，那自然再正常不过。</p><p>话说我的直接领导确实是Engineering team的大佬，但是他不负责管我平时干活，只负责给我给我批假或者写考评这种事情。当然技术问题很多时候我需要去问他，遇到急着修的bug的时候他也会帮忙指路，充当的更多是一个顾问的角色。</p><h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>来了半年了，我经常吐槽公司的engineering practice不行。不过我仔细想了想以后，我觉得这锅不能让公司背——其实我公司的engineering practice非常完善，各种pipeline跑的666，虽然code review不强制但是linter管的很严，各种readme写的也简单易懂，用的一些框架虽然我没机会学但是听说挺高级的。只，是！我们组的practice非常不行，连单元测试都是缺斤少两的。那为什么我们组的engineering practice不行呢，很简单，因为我们组根本不是搞engineering的啊！</p><p>测试？测试是干啥用的，保证自己写的代码质量好。但我们用的都不是自己的代码，先不说测试不通过算谁的这种事，关键是可能这代码只用一年，等公司不想续签合同了这些代码就全删了，那你在上面多花时间不是浪费么？</p><p>然后说到和乙方开ticket的流程。我在这半年，目前有两个相对大一些的项目是在和乙方做集成。其中一个乙方应该是签了很久了，不过他们想让我们试用他们的新产品，流程相对比较顺畅，Director大姐姐介绍我和那边负责人认识以后，我直接被他邀请到他的Slack workspace，有问题直接上面问就好了。另一个是十月份刚签下来的，算是全方位的暴露了我以前不知道的甲方工作流程——</p><ol><li>对方发来了上路指南等等文档</li><li>我们读完，提出问题，早上开站会的时候讨论</li><li>一边讨论，大姐姐就一边开始写邮件。对，一般都是她来写，因为这种统筹啊沟通啊之类的事情理应是她负责。要我自己写当然也可以，但是“沟通”这种事毕竟不在我职责范围内嘛。她一边写会一边让我们看是不是这么回事儿，此时我经常能看出来她对技术的理解就还是有偏差。</li><li>经常会开会，而且明明我以为这个会只讨论技术实现，结果一大堆Ad/revenue的大佬们也会来旁听，听不懂的技术细节他们会想办法搞明白（虽然我觉得开到最后他们也经常有点晕）免得我们说着说着要去搞一些合同里没有，需要再花几千块钱买的东西……</li></ol><p>说到“花钱”这点，想起来我前段时间在思考的一个话题——我们技术人员和ad ops的人，即使不停地讨论”what’s happening on the business side”，为何依然无法有效的沟通？<strong>应该是因为前者看的是如何实现，而后者看的是如何变现。</strong>这就是为啥我觉得我和他们沟通起来总是有个壁，感觉他们告诉我的都不是我想知道的，而我觉得他们理应知道的最后发现他们都不知道……就经常他们说“哎你去做某某改动”我会问“这是什么改动，我改完了以后应该在页面上看到一个什么效果”他们回答来回答去都是“为什么从business角度来说我们要做这个改动？”具体例子我现在也想不起来了，只能说还好我算是个训练有素的agile人，每次被开了ticket都会追问一句”So what’s the acceptance criteria?”</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>写的时候发现了这篇<a href="https://zhuanlan.zhihu.com/p/28208437" target="_blank" rel="noopener">知乎文章</a>。妈呀我觉得说得真好……</p><p>作为一个直接动手做产品并靠此获得成就感的底层技术人员来说，我真是too young to naive才会想去甲方看看咋回事，自己不动手做产品就把别人买的轮子拿来乱套，真的没法提升技术竞争力。</p><p>但同时，在乙方毕竟姿态低，所以对于做决策的人来讲应该就是另一回事了。如果搬砖工们都像我一样傻hi地从没觉得需要低声下气伺候甲方爸爸，那很幸运，你顶上的大佬们已经把这些事都做了。想到以前有两次我ticket被人给差评，都是我老板挺身而出和对方交涉给我擦屁股，简直感动TAT</p>]]></content>
+    
+    <summary type="html">
+    
+      以前在贵司搬砖的重头戏就是Zendesk在线给甲方爸爸答疑（这里甲方我指的是publishers因为我们组开发的包就是给他们用的），后来跳槽了，做的事情也差不多——除了我坐到桌子另一头，变成甲方了。
+
+之前负责给人解答问题的时候免不了总是吐槽“为什么这些客户跑来问一些这么傻逼的问题。”当然那个时候也知道自己的吐槽不太公平，毕竟产品是自家的，我思考问题时无意中预设的前提，对方没有概念也是常事。那时候我最好奇的明明是一个问题——人家代码跑不通，谁写的代码谁来来问我就好了嘛，为什么中间要经过一大堆不相干的人传话呢？（有时候会原封不动复制粘贴，这种情况下我就会觉得”这帮人存在是干啥的“；有时候会用自己
+    
+    </summary>
+    
+      <category term="The Hashmap" scheme="http://orzzai.github.io/categories/The-Hashmap/"/>
+    
+    
+      <category term="tech" scheme="http://orzzai.github.io/tags/tech/"/>
+    
+  </entry>
   
   <entry>
     <title>美漂十年小记</title>
@@ -509,40 +533,6 @@ Here we go again, and hopefully I can check some of them off in two years time�
       <category term="travel" scheme="http://orzzai.github.io/tags/travel/"/>
     
       <category term="landscape" scheme="http://orzzai.github.io/tags/landscape/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>某崽美发评测 之 两款玫瑰金染发膏</title>
-    <link href="http://orzzai.github.io/2019/10/11/hair-diy-rosegold/"/>
-    <id>http://orzzai.github.io/2019/10/11/hair-diy-rosegold/</id>
-    <published>2019-10-12T03:16:53.000Z</published>
-    <updated>2019-10-12T04:57:55.650Z</updated>
-    
-    <content type="html"><![CDATA[<p>一直想染玫瑰金发色，于是买了款欧莱雅染发膏8月底染了一回，可惜效果不尽人意。9月份在K-town逛街，本来是想看看有什么别的好看的颜色可以染的，鬼使神差地还是买了一款玫瑰金。没想到第二次染的效果非常好，于是这里来对比一下，从此我就是亚洲染发品牌无脑吹。</p><p><strong>欧莱雅那款是Feria 822($8.99)，后来买的是爱茉莉($15.99)</strong>（我买的时候只是觉得封面有点像杨超越，好像会带来好运的样子，真的不知道是啥牌子）</p><p><img src="/images/rosegold/loreal-box.jpeg" alt="欧莱雅包装"><img src="/images/rosegold/mise-box.jpg" alt="爱茉莉包装"></p><h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><p>首先上两个B站视频，流量党可以跳过直接看下面文字版</p><h4 id="欧莱雅"><a href="#欧莱雅" class="headerlink" title="欧莱雅"></a>欧莱雅</h4><iframe src="//player.bilibili.com/player.html?aid=64971289&cid=112770666&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><h4 id="爱茉莉"><a href="#爱茉莉" class="headerlink" title="爱茉莉"></a>爱茉莉</h4><iframe src="//player.bilibili.com/player.html?aid=68827502&cid=119285053&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe><p>好了以下开始正式测评</p><h3 id="上色前"><a href="#上色前" class="headerlink" title="上色前"></a>上色前</h3><p>染欧莱雅之前，我发梢部分漂过一次，而且长度比较短。染爱茉莉之前我等于是已经漂过一遍又染了一遍，然后我又拉了更长的一截发梢又漂了一次。</p><p>所以应该说第二次染之前的颜色是更浅而且上色面积要更大的，不过其实我后面那次漂头发的时候发现了漂发剂其实根本不够用。</p><p><img src="/images/rosegold/before.png" alt="上色前"></p><p>来个能看到整个脑袋的可能效果更直观？顺序和之前一样<br><img src="/images/rosegold/before2.png" alt="整个脑袋上色前"></p><h3 id="上色过程"><a href="#上色过程" class="headerlink" title="上色过程"></a>上色过程</h3><p>首先，<strong>欧莱雅是不送披肩的。</strong>如果是第一次染头发的童鞋们……自求多福吧，染头发没披肩会死的，强烈谴责卖染发膏不送披肩的销售</p><p>应该说我见过的染发膏里面内容都一样，两个小包的内容装到一个大瓶子里摇一摇，再加一管护发素。不过欧莱雅的说明书写的清楚很多，爱茉莉的说明书可能写的也清楚吧但是只有韩文看不懂。像我第二次染头发就……把护发素当成另一个什么水，加进染色剂里了，还好没出什么问题。</p><p>需要注意的是，爱茉莉那个上色真的太强了，把我身上穿的衣服染红了一小块，而且染完了以后我面前的洗手盆全是一片红的，乍一看以为杀过猪……</p><p>上完色后我等的时间都是半个小时。</p><h3 id="上色后"><a href="#上色后" class="headerlink" title="上色后"></a>上色后</h3><p>效果非常，非常，非常明显的不同。自己对比吧。我相信和之前说的上色体积和上色前头发的颜色是有关系的，但是……真的不会这么明显的。</p><p>下面的图是刚吹干后。房间灯比较暗，感觉色调还差不多，但是一个灰呼呼的另一个就至少是亮的。<br><img src="/images/rosegold/rightafter.png" alt="刚吹干"></p><p>下面是一天后。右边那张基本上能有时看出亮粉色有时候看出亮橙色……<br><img src="/images/rosegold/1day.png" alt="一天后"></p><h3 id="上色两周后"><a href="#上色两周后" class="headerlink" title="上色两周后"></a>上色两周后</h3><p>其实到了这个时候，颜色都退的差不多了。我现在的发色和后面那张没什么区别。<br><img src="/images/rosegold/2weeks.png" alt="欧莱雅两周后"><br>不过这里可以很明显看到……上色面积大还是有优势的……</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>首先，上色面积大，还有初始发色更浅，这两个变量基本上是没办法忽略的。但是客观上，爱茉莉上色效果就是比欧莱雅更强也是毋庸置疑的。</p><p>我不知道这个只是个例，还是可以说明亚洲染发产品和欧美染发产品的区别。怎么说呢毕竟欧美人种发色普遍比较浅，应该不像黑头发的亚洲人一样需要特别强力的上色剂？</p><p>当然也有可能是因为后者比前者更贵……捂脸</p><p>很难评估对发质的影响，毕竟两次相隔也不到一个月。但是确定一定以及肯定影响了发质，我下半拉头发摸起来的手感明显比之前要更毛躁，很多。</p><p>最重要的一点，就是基本上这个颜色只能<strong>维持两个星期不到，</strong>之后就会慢慢变色或者褪色了。</p><h3 id="下期预告"><a href="#下期预告" class="headerlink" title="下期预告"></a>下期预告</h3><p><img src="https://images-na.ssl-images-amazon.com/images/I/51sGG1%2B6r0L.jpg" alt="April Skin Peach Pink"></p><p>最近掉入少女粉的大坑无法自拔。大概就这个月会染？请大家期待视频啦啦啦～</p><p>不过感觉不能抱太大希望，毕竟我很喜欢的这位油管up主小姐姐表示试了不成功😂也没准我最后就直接买深粉色了</p><div class="video-container"><iframe src="//www.youtube.com/embed/Af3hDGbp3EM" frameborder="0" allowfullscreen></iframe></div>]]></content>
-    
-    <summary type="html">
-    
-      一直想染玫瑰金发色，于是买了款欧莱雅染发膏8月底染了一回，可惜效果不尽人意。9月份在K-town逛街，本来是想看看有什么别的好看的颜色可以染的，鬼使神差地还是买了一款玫瑰金。没想到第二次染的效果非常好，于是这里来对比一下，从此我就是亚洲染发品牌无脑吹。
-
-欧莱雅那款是Feria 822($8.99)，后来买的是爱茉莉($15.99)（我买的时候只是觉得封面有点像杨超越，好像会带来好运的样子，真的不知道是啥牌子）
-
-
-
-视频
-首先上两个B站视频，流量党可以跳过直接看下面文字版
-
-欧莱雅
-爱茉莉
-好了以下开始正式测评
-
-上色前
-染欧莱雅之前，我发梢部分漂过一次，而且长度比较短。染爱茉莉之前我等于是
-    
-    </summary>
-    
-      <category term="The Hashmap" scheme="http://orzzai.github.io/categories/The-Hashmap/"/>
-    
     
   </entry>
   
